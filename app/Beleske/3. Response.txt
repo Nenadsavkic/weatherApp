@@ -1,0 +1,58 @@
+
+Sada cemo videti kako da prihvatimo response i da prikazemo rezultate, i kao sto smo vec videli
+ti rezultati ce biti u JSON formatu.
+
+Podatke cemo prihvatiti u kontroleru 'ProjectController' u metodi 'search', zatim cemo ih proslediti
+u view 'welcome'.
+
+     public function search(Request $request)
+    {
+         //return $request->input('cityName'); 
+
+         $city =  $request['cityName'];
+         $response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&appid=82e0be784317765ec3af35fc2e2d4aef");
+         return view('welcome', ['response'=>$response]);
+
+
+    }
+
+
+U 'welcome' view-u cemo prikazati rezultate u kartici:
+
+
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body text-center">
+                  <h5 class="card-title"><strong>{{ $response['name'] }}</strong></h5>
+                  <p class="card-text">Temperature: <strong>{{ $response['main']['temp'] }}</strong></p>
+                  <p class="card-text">Weather:  <strong>{{ $response['weather']['0']['description'] }}</strong></p>
+                  <a href="#" class="btn btn-success">View more details</a>
+                </div>
+            </div>
+
+______________________________________________________________________________________________________________________________________
+
+Sada nase polje za pretragu radi, ako ukucamo ime grada u search polje, dobicemo u kartici rezultate vremenske prognoze 
+za taj grad.
+
+Zatim treba da dodamo ikonicu (sliku) za odgovarajucu prognozu, ako je oblacno da budu oblacici, ako je suncano da bude sunce
+itd...
+
+Ikonicu cem dodati pomocu url-a koji cemo naci na stranici 'weather condition codes'  https://openweathermap.org/weather-conditions
+zatim vidimo pod 'How to get icon URL' i iskopiramo url 'http://openweathermap.org/img/wn/10d@2x.png', e sada kako dalje postupamo
+sa ovim url-om i sta sve treba da se promeni, pogledati u 'welcome.blade.php' linija koda 33. To je 'img' tag koji u source ima php kod.
+Taj php kod nam vraca echo komandom vraca odgovarajucu ikonicu.
+
+
+            <img src="<?php echo " http://openweathermap.org/img/wn/". $response['weather']['0']['icon'].".png"; ?>"
+            style="height: 200px;" class="card-img-top img-responsive">
+
+______________________________________________________________________________________________________________________________________
+
+Sledece sto treba da uradimo je da konvertujemo temperaturu iz kelvina u celzius. da bismo to postigli moramo da dodamo ovo u 
+URL: '&units=metric' . A kako to izgleda pogledati dole:
+
+
+
+
+   

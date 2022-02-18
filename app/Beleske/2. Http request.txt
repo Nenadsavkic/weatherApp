@@ -1,0 +1,138 @@
+
+Da bismo koristili Http request u Laravelu potrebno je da koristimo modul koji se zove 
+'Http', ali da bismo ga koristili moramo da se pobrinemo da on prvo bude instaliran.
+Ako je instaliran mozemo ga koristiti, ako nije moramo ga prvo instalirati a onda mozemo 
+poceti da ga koristimo.
+
+Kako cemo znati da li je instaliran ili ne? Otvoricemo 'composer.json' fajl i tamo cemo potraziti
+'guzzlehttp/guzzle', ovo je biblioteka koja sadrzi http module. Ako ga pronadjemo to znaci da postoji,
+ako ne onda ga moramo instalirati.
+
+
+        "guzzlehttp/guzzle": "^7.0.1",
+
+
+Po defaultu trebalo bi da bude instaliran automatski, kada kreiramo Laravel projekat, ali ako nije
+instaliracemo ga sledecom komandom u composeru:
+
+
+        composer require guzzlehttp/guzzle
+
+
+____________________________________________________________________________________________________________
+
+
+Sada kada sve imamo, treba da vidimo kako da napravimo http request.
+
+Da bismo to uradili moramo da importujemo klasu 'Http'.
+Pogledati u 'ProjectController.php' metoda 'welcome'.   
+
+
+   use Illuminate\Support\Facades\Http;
+
+    public function welcome(Request $request)
+    {
+        $city = "";
+        $response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&appid=82e0be784317765ec3af35fc2e2d4aef");
+        return view('welcome',['response'=>$response]);
+    }
+
+______________________________________________________________________________________________________________
+
+Ova funkcija ce nam omoguciti da napravimo 'get' request.
+Ova funkciija uzima url servisa koji zelimo da koristimo da bi uzeli podatke, odnosno ova funkcija
+uzima URL API SERVISA, i vraca response, taj response cemo sacuvati u varijabli '$response'.
+
+
+        $response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&appid=82e0be784317765ec3af35fc2e2d4aef");
+
+
+Odgovor koji cemo dobiti ce biti u JSON formatu, nesto kao ovo dole, gde cemo dobiti sve podatke o vremenskoj prognozi:
+
+{
+  "coord": {
+    "lon": -122.08,
+    "lat": 37.39
+  },
+  "weather": [
+    {
+      "id": 800,
+      "main": "Clear",
+      "description": "clear sky",
+      "icon": "01d"
+    }
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 282.55,
+    "feels_like": 281.86,
+    "temp_min": 280.37,
+    "temp_max": 284.26,
+    "pressure": 1023,
+    "humidity": 100
+  },
+  "visibility": 16093,
+  "wind": {
+    "speed": 1.5,
+    "deg": 350
+  },
+  "clouds": {
+    "all": 1
+  },
+  "dt": 1560350645,
+  "sys": {
+    "type": 1,
+    "id": 5122,
+    "message": 0.0139,
+    "country": "US",
+    "sunrise": 1560343627,
+    "sunset": 1560396563
+  },
+  "timezone": -25200,
+  "id": 420006353,
+  "name": "Mountain View",
+  "cod": 200
+  } 
+
+_________________________________________________________________________________________________________________
+
+Sada kreiramo formu za pretragu gradova u 'welcome.blade.php' koja ce imati polje za unos i 
+'search' dugme za pretragu grada za kiji zelimo da prikazemo vremensku prognozu:
+
+
+    <form action="{{ route('search') }}" method="POST">
+          @csrf
+          <div class="input-group mt-5 mb-5">
+            <input type="text" name="cityName" class="form-control" placeholder="Enter the name of the city" required>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+    </form>
+
+
+Zatim u 'web.php' keiramo 'Route' za tu formu sa 'post' metodom: 
+
+
+   Route::post('/search', [App\Http\Controllers\ProjectController::class, 'search'])->name('search');
+
+
+A zatim u kontrolleru 'ProjectController.php' kreiramo metodu 'search':
+
+   public function search(Request $request)
+    {
+       //return $request->input('cityName');    // 1. nacin
+
+      return $query = $request['cityName'];     // 2. nacin
+    }
+
+   
+
+
+
+
+
+
+
+
+
+
+

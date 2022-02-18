@@ -1,0 +1,7 @@
+
+Izasao je novi Laravel 9, ali ja u ovom projektu zelim da koristim Laravel 8, i da bih to
+postigao potrebno je da sledecu komandu unesem u terminal:
+
+      composer create-project laravel/laravel:^8.x weather_app
+
+________________________________________________________________________________________________      
