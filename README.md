@@ -1,4 +1,4 @@
-# Bloggerman
+# Weather App
 
 
 
@@ -9,11 +9,11 @@
 
 ### Clone the repository 
 
-   <p> git clone https://github.com/Nenadsavkic/Bloggerman.git </p>
+   <p> git clone https://github.com/Nenadsavkic/weather_app.git </p>
 
    ### Switch to the repository cloned folder
 
-   <p> example path:  PS C:\Users> cd bloggerman  </p>
+   <p> example path:  PS C:\Users> cd weather_app  </p>
 
 ### Install all the dependencies using composer
 
@@ -31,18 +31,6 @@
     
    ```bash
    php artisan key:generate
-   ```
-### Link storage directory
-
-   ```bash
-   php artisan storage:link
-   ```
-
-### Create database 'bloggerman' in your local server (xamp), then run migration
-### Check the database connection in .env before migrating
-
-   ```bash
-   php artisan migrate
    ```
 
 ### Start your server
