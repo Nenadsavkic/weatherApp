@@ -31,7 +31,7 @@
             
         
         <div class="col-md-6 offset-md-3 mt-5">
-            <div class="card" style="background: #ff9800; width: 23rem; margin: 5px auto;">
+            <div class="card" style="background: #ff9800; margin: 5px auto;">
                 <img src="<?php echo " http://openweathermap.org/img/wn/". $response['weather']['0']['icon'].".png"; ?>"
                 style="width: 90px; margin: 5px auto" class="card-img-top">
                 <div class="card-body text-center text-light">
