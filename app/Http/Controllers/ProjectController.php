@@ -31,7 +31,7 @@ class ProjectController extends Controller
     {
             $city =  $request['cityName'];
             $response = Http::get("https://api.openweathermap.org/data/2.5/weather?q=".$city."&units=metric&appid=82e0be784317765ec3af35fc2e2d4aef");
-    
+            //dd($response);
             return view('search', ['response'=>$response]);
 
     }

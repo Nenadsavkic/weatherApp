@@ -28,19 +28,27 @@
         </form>
       </div>
     
-            
-        
+        @if ($response['cod'] === 200)
+
         <div class="col-md-6 offset-md-3 mt-5">
-            <div class="card" style="background: #ff9800; margin: 5px auto;">
-                <img src="<?php echo " http://openweathermap.org/img/wn/". $response['weather']['0']['icon'].".png"; ?>"
-                style="width: 90px; margin: 5px auto" class="card-img-top">
-                <div class="card-body text-center text-light">
-                  <h5 class="card-title"><strong>{{ $response['name'] }}</strong></h5>
-                  <p class="card-text">Temperature: <strong>{{ round($response['main']['temp']) }} &deg C </strong></p>
-                  <p class="card-text">Weather:  <strong>{{ $response['weather']['0']['description'] }}</strong></p>                                     
-                </div>
+          <div class="card" style="background: #ff9800; margin: 5px auto;">
+              <img src="<?php echo " http://openweathermap.org/img/wn/". $response['weather']['0']['icon'].".png"; ?>"
+              style="width: 90px; margin: 5px auto" class="card-img-top">
+              <div class="card-body text-center text-light">
+                <h5 class="card-title"><strong>{{ $response['name'] }}</strong></h5>
+                <p class="card-text">Temperature: <strong>{{ round($response['main']['temp']) }} &deg C </strong></p>
+                <p class="card-text">Weather:  <strong>{{ $response['weather']['0']['description'] }}</strong></p>                                     
               </div>
+            </div>
         </div>
+            
+        @else
+
+          <div class="col-md-4 offset-md-4 alert alert-danger text-center">Error ! Please enter a valid city name.</div>
+            
+        @endif  
+        
+       
      
 
     </div>
