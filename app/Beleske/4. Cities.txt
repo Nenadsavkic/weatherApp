@@ -1,5 +1,0 @@
-
-Sada imamo u pretrazi mugucnost da prikazemo prognozu za jedan grad koji trazimo. Ali sta ako zelimo
-na primer da na glavnoj stranici 'welcome' prikazemo prognozu za vise gradova, kako to da uradimo?
-Mozemo napraviti mnogo 'http' requestova (za svaki gad pojedinacno, na primer). Ali da li postoji
-jednostavniji i bolji nacin da to postignemo?
